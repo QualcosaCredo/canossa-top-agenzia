@@ -10,7 +10,6 @@ Entità e Attributi
 
 • Superficie
 
-• ClasseEnergetica
 
 • Quartiere
 
@@ -34,7 +33,7 @@ Entità e Attributi
 
 • Telefono
 
-• Email
+
 
 3. Acquirenti 
 
@@ -46,7 +45,7 @@ Entità e Attributi
 
 • Telefono
 
-• Email
+
 
 4. Visite 
 
