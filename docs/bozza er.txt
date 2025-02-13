@@ -1,9 +1,75 @@
-agenzia imobiliare
+Entità e Attributi
 
-immobili(monolocale;bilocale;attici;ville;negozi;uffici;capannoni;box)
+1. Immobili 
 
-cliente
+• CodiceImmobile (PK)
 
-quartiere
+• Tipologia 
 
-citt�
+• PrezzoRichiesto
+
+• Superficie
+
+• ClasseEnergetica
+
+• Quartiere
+
+• Indirizzo
+
+• DataDisponibilità
+
+• DataInserimento
+
+• Stato 
+
+• CodiceVenditore (FK)
+
+2. Venditori 
+
+• CodiceVenditore (PK)
+
+• Nome
+
+• Cognome
+
+• Telefono
+
+• Email
+
+3. Acquirenti 
+
+• CodiceAcquirente (PK)
+
+• Nome
+
+• Cognome
+
+• Telefono
+
+• Email
+
+4. Visite 
+
+• CodiceVisita (PK)
+
+• CodiceImmobile (FK)
+
+• CodiceAcquirente (FK)
+
+• CodiceVenditore (FK)
+
+• DataVisita
+
+5. Vendite 
+
+• CodiceVendita (PK)
+
+• CodiceImmobile (FK)
+
+• CodiceAcquirente (FK)
+
+• PrezzoVendita
+
+• DataVendita
+
+• Provvigione
