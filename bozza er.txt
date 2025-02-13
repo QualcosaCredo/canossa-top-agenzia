@@ -1,0 +1,9 @@
+agenzia imobiliare
+
+immobili(monolocale;bilocale;attici;ville;negozi;uffici;capannoni;box)
+
+cliente
+
+quartiere
+
+città
