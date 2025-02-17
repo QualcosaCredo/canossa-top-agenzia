@@ -14,6 +14,8 @@ CREATE TABLE IMMOBILI (
     tipologia varchar(20) not null,
     prezzoRichiesto varchar(20) not null,
     superficie varchar(20) not null,
+    quartiere varchar(20) not null,
+    indirizzo varchar(20) not null,
     dataDisponibilita varchar(20) not null,
     dataInserimento varchar(20) not null,
     stato varchar(20) not null,
