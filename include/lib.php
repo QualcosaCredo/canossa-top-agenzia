@@ -27,7 +27,4 @@ function writeFooter(){
             </html>');
     return;
 }
-
-
-
 ?>
