@@ -30,7 +30,7 @@ INSERT INTO VENDITORE (nome, cognome) VALUES
 ('Martina', 'Gallo');
 
 -- Inserimento dati nella tabella IMMOBILI
-INSERT INTO IMMOBILI (tipologia, prezzoRichiesto, superficie, quartiere, indirizzo, dataDisponibilita, dataInserimento, stato, codiceVenditore, codiceProprietario) VALUES
+INSERT INTO IMMOBILI (tipologia, prezzorichiesto, superficie, quartiere, indirizzo, datadisponibilita, datainserimento, stato, codiceVenditore, codiceProprietario) VALUES
 ('Appartamento', 250000.00, 80.00, 'Centro', 'Via Roma 1', '2023-01-01', '2023-01-01', 'Disponibile', 1, 1),
 ('Villa', 500000.00, 200.00, 'Collina', 'Via delle Rose 10', '2023-02-01', '2023-02-01', 'Disponibile', 2, 2),
 ('Monolocale', 150000.00, 40.00, 'Centro', 'Piazza della Libertà 5', '2023-03-01', '2023-03-01', 'Disponibile', 1, 3),
@@ -43,7 +43,7 @@ INSERT INTO IMMOBILI (tipologia, prezzoRichiesto, superficie, quartiere, indiriz
 ('Appartamento', 320000.00, 95.00, 'Marina', 'Lungomare 25', '2023-10-01', '2023-10-01', 'Disponibile', 3, 6);
 
 -- Inserimento dati nella tabella VISITE
-INSERT INTO VISITE (datavisita, codiceAc QUIRENTE, codiceImmobili, codiceVenditore) VALUES
+INSERT INTO VISITE (datavisita, codiceacquirente, CodiceImmobile, codicevenditore) VALUES
 ('2023-01-15', 1, 1, 1),
 ('2023-01-20', 2, 2, 2),
 ('2023-02-10', 3, 3, 1),
@@ -56,7 +56,7 @@ INSERT INTO VISITE (datavisita, codiceAc QUIRENTE, codiceImmobili, codiceVendito
 ('2023-05-25', 10, 10, 3);
 
 -- Inserimento dati nella tabella VENDITE
-INSERT INTO VENDITE (dataVendita, codiceAcquirente, codiceImmobili, prezzoVendita) VALUES
+INSERT INTO VENDITE (datavendita, codiceacquirente, codiceimmobili, prezzovendita) VALUES
 ('2023-06-01', 1, 1, 240000.00),
 ('2023-06-15', 2, 2, 480000.00),
 ('2023-07-01', 3, 3, 140000.00),
