@@ -13,8 +13,6 @@
 
     $is_admin = (isset($_POST['is_admin'])) ? true : 0; 
 
-    echo $is_admin;
-
     $login_type = (isset($_POST['login_type'])) ? $_POST['login_type'] : null;
 
     if(!$password || !$username  || !$login_type){
@@ -26,7 +24,7 @@
     $username = strtoupper($username);
 
     if($login_type == "Register"){
-        $result = $conn->query("SELECT count(*) from UTENTI WHERE username = '$username';");
+        $result = $conn->query("SELECT count(*) FROM UTENTE WHERE nome = '$username';");
 
         if($result > 0){
             $conn->close();
@@ -38,24 +36,22 @@
         $result = $conn->query("INSERT INTO UTENTE(passwd,nome,is_admin) VALUES('$password','$username','$is_admin')");
 
         if(!$result){
+            $conn->close();
             header("Location: ../php/loginPage.php");
             die("Creazione dell' account fallita: ".$conn->error);
-            $conn->close();
         }
 
     }else if($login_type == "Login"){
-        $result = $conn->query("SELECT nome,passwd from UTENTE WHERE nome = '$username' AND passwd = md5('$password')");
-        if(!$result){
-            echo "Login fallito: ".$conn->error;
+
+        $result = $conn->query("SELECT count(*) AS cnt FROM UTENTE WHERE nome = '$username' AND passwd = '$password'");
+
+        if(!$result || $result->fetch_assoc()['cnt'] == 0){
             $conn->close();
+            header("Location: ../php/loginPage.php");
             die();
         }
 
         $permission = $result->fetch_assoc($result)['is_admin'];
-
-        if($permission){
-            echo "guy is amdmin!!";
-        }
     }
 
     $conn->close();
