@@ -1,10 +1,43 @@
-<?php include 'database.php'; ?>
+<?php include_once "../include/database.php";
+    session_start();
+
+    if(!isset($_SESSION["logged"])){
+        header('Location: loginPage.php');
+        die("not logged in");        
+    }
+?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Gestione Immobili</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <style>
+        #filter-div{
+            align-items: center;
+            align-content: center;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10px;
+            width :fit-content;
+        }
+
+        .filter-selector{
+            position: relative;
+            box-shadow: 0px 0px 2px;
+            background-color: white;
+            border-width: 3px;
+            border-color: rgb(100, 100, 100);
+            border-style: solid;
+            border-radius: 20px;
+            text-overflow: ellipsis;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin: auto;
+        }
+        .default-filter-text{
+            color: rgb(180, 180, 180);
+        }
         table { width: 100%; border-collapse: collapse; }
         th, td { border: 1px solid black; padding: 10px; text-align: left; }
         th { background-color: #f2f2f2; }
@@ -12,62 +45,58 @@
         a { display: inline-block; margin-top: 20px; padding: 10px; background: #007BFF; color: white; text-decoration: none; border-radius: 5px; }
         a:hover { background: #0056b3; }
     </style>
-    <script>
-        function aggiornaStato(codice, stato) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "aggiorna_stato.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    alert(xhr.responseText); // Mostra la risposta dal server
-                }
-            };
-            xhr.send("codice=" + codice + "&stato=" + stato);
-        }
-    </script>
 </head>
 <body>
-    <h2>Lista Immobili</h2>
-    <table>
-        <tr>
-            <th>Tipologia</th>
-            <th>Prezzo Richiesto</th>
-            <th>Superficie (mq)</th>
-            <th>Quartiere</th>
-            <th>Indirizzo</th>
-            <th>Data Disponibilità</th>
-            <th>Stato</th> <!-- Colonna modificabile -->
-        </tr>
-        <?php
-        $sql = "SELECT CodiceImmobile, tipologia, prezzorichiesto, superficie, quartiere, indirizzo, datadisponibilita, stato 
-                FROM IMMOBILI";
-        $result = $conn->query($sql);
+    <div id = "navbar"><a href="../include/logout.php">Logout</a></div>
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>
-                    <td>{$row['tipologia']}</td>
-                    <td>{$row['prezzorichiesto']} €</td>
-                    <td>{$row['superficie']}</td>
-                    <td>{$row['quartiere']}</td>
-                    <td>{$row['indirizzo']}</td>
-                    <td>{$row['datadisponibilita']}</td>
-                    <td>
-                        <select onchange='aggiornaStato({$row['CodiceImmobile']}, this.value)'>
-                            <option value='Disponibile' " . ($row['stato'] == 'Disponibile' ? 'selected' : '') . ">Disponibile</option>
-                            <option value='Venduto' " . ($row['stato'] == 'Venduto' ? 'selected' : '') . ">Venduto</option>
-                            <option value='Riservato' " . ($row['stato'] == 'Riservato' ? 'selected' : '') . ">Riservato</option>
-                        </select>
-                    </td>
-                </tr>";
-            }
-        } else {
-            echo "<tr><td colspan='7'>Nessun immobile disponibile</td></tr>";
-        }
-        ?>
-    </table>
-    <a href="index.php">🔙 Torna all'Indice</a>
+    <div id = "filter-div">
+        <select name="tipologia" class="filter-selector" id="filtroTipologia"> 
+            <option class="default-filter-text" selected></option> 
+            <?php
+            echo "hello";
+                $result = $conn->query("SELECT tipologia FROM IMMOBILI GROUP BY tipologia");
+                if(!$result){
+                    die();
+                }
+
+                while($row = $result->fetch_assoc()){   
+                    $tipologia = $row['tipologia'];
+                    echo "<option value='$tipologia'><a href='./index.php'>$tipologia</a></option>";
+                }
+            ?>
+        </select>
+
+        <select name="quartiere" class="filter-selector" id="filtroQuartiere"> 
+            <option class="default-filter-text" selected></option> 
+            <?php
+                $result = $conn->query("SELECT quartiere FROM IMMOBILI GROUP BY quartiere");
+                if(!$result){
+                    die();
+                }
+                
+                while($row = $result->fetch_assoc()){   
+                    $quartiere = $row['quartiere'];
+                    echo "<option value='$quartiere'>$quartiere</option>";
+                }
+                ?>
+        </select>
+        
+        <input type = "text" name="prezzo" placeholder = "prezzo" class="filter-selector" id="filtroPrezzo"></input>
+
+        <input type = "text" name="superficie" placeholder = "superficie m²" class="filter-selector" id="filtroSuperficie"> </input>
+
+        <select name="stato" class="filter-selector" id="filtroStato"> 
+            <option class="default-filter-text" selected></option> 
+            <option value='Disponibile' >Disponibile</option>
+            <option value='Venduto' >Venduto</option>
+            <option value='Riservato' >Riservato</option>
+        </select>
+    </div>
+    <?php $conn->close() ?>
+    <div id = "view-immobili">
+    </div>
 </body>
-</html>
 
-<?php $conn->close(); ?>
+<script src = "../js/filtri.js"></script>
+
+</html>

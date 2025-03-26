@@ -1,4 +1,5 @@
-<?php include 'database.php'; ?>
+<?php include '../include/database.php'; ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -15,6 +16,8 @@
     </style>
 </head>
 <body>
+    <div id = "navbar"><a href="../include/logout.php">Logout</a></div>
+
     <h2>Registra una Vendita</h2>
     <form method="POST">
         <label>Seleziona Immobile:</label>

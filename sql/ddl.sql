@@ -23,7 +23,7 @@ CREATE TABLE PROPRIETARIO (
 CREATE TABLE IMMOBILI (
     CodiceImmobile integer unsigned auto_increment,
     tipologia varchar(20) DEFAULT '' not null,
-    prezzorichiesto varchar(20) DEFAULT '' not null,
+    prezzorichiesto integer unsigned not null,
     superficie varchar(20) DEFAULT '' not null,
     quartiere varchar(20) DEFAULT '' not null,
     indirizzo varchar(64) DEFAULT '' not null,
@@ -39,7 +39,7 @@ CREATE TABLE IMMOBILI (
 
 CREATE TABLE VENDITE (
     CodiceVendita integer unsigned auto_increment,
-    prezzovendita varchar(20)DEFAULT '' not null,
+    prezzovendita integer unsigned not null,
     datavendita varchar(20)DEFAULT '' not null,
     prezzo varchar(20)DEFAULT '' not null,
     provvigione varchar(20)DEFAULT '' not null,
@@ -60,4 +60,11 @@ CREATE TABLE VISITE (
     foreign key (CodiceImmobile)REFERENCES IMMOBILI(CodiceImmobile),
     foreign key (CodiceVenditore)REFERENCES VENDITORE(CodiceVenditore),
     primary key(CodiceVisita)
+)ENGINE=InnoDB;
+
+CREATE TABLE UTENTE(
+    id integer unsigned auto_increment primary key,
+    nome varchar(64) DEFAULT '' not null,
+    passwd varchar(128) DEFAULT '' not null,
+    is_admin boolean not null
 )ENGINE=InnoDB;
